@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<title> Funksteckdosen übers Webinterface steuern</title>
+
+	<script src="/socket.io/socket.io.js"></script>
+	
+	
+	<meta name="viewport" content="width=device-width; initial-scale=1"/>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
+	<script>
+	$( document ).ready(function() {
+		let socketio = io();
+		
+		$( ".btn" ).click(function( event ) {
+			var btn = event.target.id;			
+			socketio.emit('con', btn, function(data) {
+				idString = "#status" + data.slice(0, 1);
+				$(idString).text(data.slice(1, data.length).toUpperCase());
+				console.log(idString);
+				
+			});
+		});
+	});
+	</script>
+
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			color: #fff;
+		}
+
+		body {
+			background-color: #444;
+		}
+
+		#wrapper {
+
+			width: 99%;
+			max-width: 800px;
+			height: auto;
+			border: 1px solid #888;
+			border-radius: 5px;
+			margin: 50px auto;
+			background-color: #555;
+		}
+
+		.steckdose {
+			width: 90%;
+			height: auto;
+			margin: 10px auto;
+			border: 1px solid #888;
+			border-radius: 5px;
+			padding-bottom: 10px;
+			background-color: #444;
+		}
+
+		.steckdose > h1 {
+			text-align: center;
+			font-size: 20px;
+			margin-top: 15px;
+		}
+
+		.row {
+			width: 98%;
+			margin: 0 auto;
+		}
+
+		.btn {
+			width: 100%;
+			cursor: pointer;
+			margin-top: 5px;
+			height: 50px;
+		}
+
+		.status {
+			text-align: right;
+			padding-right: 20px;
+			padding-top: 5px;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrapper">
+
+		<div class="steckdose">
+			<div class="status">
+				<span>Status: </span><span id="statusA">OFF</span>
+			</div>
+
+			<h1>Steckdose A</h1>
+
+			<div class="row">
+				<div class="col-sm-6">
+					<button type="button" class="btn btn-success" id="steckerAON">ON</button>
+				</div>
+				<div class="col-sm-6">
+					<button type="button" class="btn btn-danger" id="steckerAOFF">OFF</button>
+				</div>
+			</div>			
+		</div>
+
+		<div class="steckdose">
+			<div class="status">
+				<span>Status: </span><span id="statusB">OFF</span>
+			</div>
+
+			<h1>Steckdose B</h1>
+
+			<div class="row">
+				<div class="col-sm-6">
+					<button type="button" class="btn btn-success" id="steckerBON">ON</button>
+				</div>
+				<div class="col-sm-6">
+					<button type="button" class="btn btn-danger" id="steckerBOFF">OFF</button>
+				</div>
+			</div>			
+		</div>
+
+		<div class="steckdose">
+			<div class="status">
+				<span>Status: </span><span id="statusC">OFF</span>
+			</div>
+
+			<h1>Steckdose C</h1>
+
+			<div class="row">
+				<div class="col-sm-6">
+					<button type="button" class="btn btn-success" id="steckerCON">ON</button>
+				</div>
+				<div class="col-sm-6">
+					<button type="button" class="btn btn-danger" id="steckerCOFF">OFF</button>
+				</div>
+			</div>			
+		</div>
+
+		<div class="steckdose">
+			<div class="status">
+				<span>Status: </span><span id="statusD">OFF</span>
+			</div>
+
+			<h1>Steckdose D</h1>
+
+			<div class="row">
+				<div class="col-sm-6">
+					<button type="button" class="btn btn-success" id="steckerDON">ON</button>
+				</div>
+				<div class="col-sm-6">
+					<button type="button" class="btn btn-danger" id="steckerDOFF">OFF</button>
+				</div>
+			</div>			
+		</div>
+	</div>
+</body>
+</html>
